@@ -1,0 +1,668 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Confident Code</title>
+
+  <link rel="stylesheet" href="./css/reset.css" type="text/css"/>
+  <link rel="stylesheet" href="./css/showoff.css" type="text/css"/>
+
+  <script type="text/javascript" src="./js/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="./js/jquery.cycle.all.js"></script>
+	<script type="text/javascript" src="./js/jquery-print.js"></script>
+  <script type="text/javascript" src="./js/jquery.batchImageLoad.js"></script>
+
+  <script type="text/javascript" src="./js/jquery.doubletap-0.1.js"></script>
+
+  <script type="text/javascript" src="./js/fg.menu.js"></script>
+  <script type="text/javascript" src="./js/showoff.js"></script>
+  <script type="text/javascript" src="./js/jTypeWriter.js"> </script>
+  <script type="text/javascript" src="./js/sh_main.min.js"></script>
+  <script type="text/javascript" src="./js/core.js"></script>
+  <script type="text/javascript" src="./js/showoffcore.js"></script>
+
+  <link type="text/css" href="./css/fg.menu.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/theme/ui.all.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/sh_style.css" rel="stylesheet" >
+
+  
+    <link rel="stylesheet" href="file/custom.css" type="text/css"/>
+  
+
+  
+
+  <script type="text/javascript">
+  $(function(){
+    setupPreso(false, './');
+  });
+  </script>
+</head>
+
+<body>
+
+
+<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="navmenu"><span class="ui-icon ui-icon-triangle-1-s"></span>slides</a>
+<div id="navigation" class="hidden"></div>
+
+<div id="help">
+  <table>
+    <tr><td class="key">space, &rarr;</td><td>next slide</td></tr>
+    <tr><td class="key">&larr;</td><td>previous slide</td></tr>
+    <tr><td class="key">d</td><td>debug mode</td></tr>
+    <tr><td class="key">## &lt;ret&gt;</td><td>go to slide #</td></tr>
+    <tr><td class="key">c</td><td>table of contents (vi)</td></tr>
+    <tr><td class="key">f</td><td>toggle footer</td></tr>
+    <tr><td class="key">r</td><td>reload slides</td></tr>
+    <tr><td class="key">z</td><td>toggle help (this)</td></tr>
+  </table>
+</div>
+
+<div class="buttonNav">
+  <input type="submit" onClick="prevStep();" value="prev"/>
+  <input type="submit" onClick="nextStep();" value="next"/>
+</div>
+
+<div id="preso">loading presentation...</div>
+<div id="footer">
+  <span id="slideInfo"></span>
+  <span id="debugInfo"></span>
+  <span id="notesInfo"></span>
+</div>
+
+<div id="slides" class="offscreen" style="display:none;">
+<div class="slide" data-transition="none"><div class="content" ref="one/01_slide/1">
+<h1>Confident Code</h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/2">
+<h1>Confident Code</h1>
+
+<ul>
+<li>Based on Avdi Grimm (@avdi) presentation</li>
+<li>on RailsConf 2011</li>
+<li>by Leonardo Bessa (@leobessa)</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/3">
+<h1>What is confident code?</h1>
+
+<ul>
+<li>The opposite of timid code.</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/4">
+<h1>Timid Code</h1></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/5">
+<h1>First, a story...</h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/6">
+<h1>Poor Storytelling</h1>
+
+<ul>
+<li>Tangents</li>
+<li>Digressions</li>
+<li>Lack of certainty</li>
+<li>...code can have these qualities as well.</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smbullets" ref="one/01_slide/7">
+<h1>Timid Code</h1>
+
+<ul>
+<li>Lives in fear</li>
+<li>Uncertain</li>
+<li>Prone to digressions</li>
+<li>Constantly second-guessing itself</li>
+<li>Randomly mixes input gathering, error handling, and business logic</li>
+<li>Imposes cognitive load on the reader</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/8">
+<h1>Confident Code</h1>
+
+<ul>
+<li>Says exactly what it intends to do</li>
+<li>No provisos or digressions</li>
+<li>Has a consistent narrative structure</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/9">
+<h1>Source Code</h1>
+
+<ul>
+<li>cowsay.rb</li>
+<li>An interface to the "cowsay" program</li>
+<li>http://github.com/avdi/cowsay</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content commandline" ref="one/01_slide/10">
+<h1>Cowsay: ASCII art animals</h1>
+
+<pre><code><code class="command">$ echo "Mooo" | cowsay</code><code class="result">
+ ______
+&lt; Mooo &gt;
+ ------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/11">
+<h1>Installing Cowsay</h1>
+
+<ul>
+<li><p>Debian/Ubuntu</p>
+
+<p>$ sudo apt-get install cowsay</p></li>
+<li><p>Mac OS X</p>
+
+<p>$ sudo port install cowsay</p>
+
+<p>$ brew install cowsay</p></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/12">
+<h1>Cowsay.rb</h1>
+
+<pre class="sh_ruby"><code>require 'lib/cowsay'
+cow = Cowsay::Cow.new
+puts cow.say "Baaa"
+# &gt;&gt;  ______
+# &gt;&gt; &lt; Baaa &gt;
+# &gt;&gt;  ------
+# &gt;&gt;         \   ^__^
+# &gt;&gt;          \  (oo)\_______
+# &gt;&gt;             (__)\       )\/\
+# &gt;&gt;                 ||----w |
+# &gt;&gt;                 ||     ||</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/13">
+<h1>Timid Code Structure</h1></div>
+</div><div class="slide" data-transition="none"><div class="content full-page" ref="one/01_slide/14">
+<p><img src="file:///Users/leonardobessa/workspace/confident-code-preso/one/timid-code-plain.png" width="520" height="431" alt="timid-code-plain"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content full-page" ref="one/01_slide/15">
+<p><img src="file:///Users/leonardobessa/workspace/confident-code-preso/one/timid-code-annotated.png" width="520" height="431" alt="timid-code-annotated"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/16">
+<h1>The Narrative structure</h1>
+
+<ul>
+<li>1 Gather input</li>
+<li>2 Perform work</li>
+<li>3 Deliver results</li>
+<li>4 handle failure</li>
+</ul>
+
+
+<h1><strong>In that order! </strong></h1></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/17">
+<h1>Step 1: Gather Input</h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/18">
+<h1/>
+
+<ul>
+<li>To be confident, we must be sure of our inputs</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/19">
+<h1>On Duck Typing</h1>
+
+<ul>
+<li>True duck typing is a confident style</li>
+<li>Duck typing doesn't ask "are you a duck?"</li>
+<li><code>object.is_a?(String)</code></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/20">
+<h1>On Duck Typing</h1>
+
+<ul>
+<li>Or even "can you quack?"</li>
+<li><code>object.respond_to?(:each)</code></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/21">
+<h1>On Duck Typing</h1>
+
+<ul>
+<li>Treat the object like a duck</li>
+<li>(If it isn't it will complain)</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/22">
+<h1>The Switch (case) Smell</h1>
+
+<ul>
+<li>Typecasing: Code that switches on the type of an object</li>
+<li>The opposite of duck typing</li>
+<li>A reaction to input variance</li>
+<li><code>nil</code> checks are the most common typecase</li>
+<li><strong>It doesn't have to be this way</strong>.</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/23">
+<h1>Dealing with Uncertain Input</h1>
+
+<ul>
+<li>Coerce</li>
+<li>Reject</li>
+<li>Ignore</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/24">
+<h1>When in doubt, coerce</h1>
+
+<ul>
+<li>Use <code>#to_s</code>, <code>#to_i</code>, <code>Array()</code> liberally</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/25">
+<h1>Ruby standard libs do this</h1>
+
+<pre class="sh_ruby"><code>require 'pathname'
+path = Pathname("/home/avdi/.emacs")
+open(path) # =&gt; #&lt;File:/home/avdi/.emacs&gt;</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/26">
+<h1>The "arrayification operator"</h1>
+
+<pre class="sh_ruby"><code>Array([1,2,3])        # =&gt; [1, 2, 3]
+Array("foo")          # =&gt; ["foo"]
+Array(nil)            # =&gt; []
+
+# Gotcha:
+Array("foo\nbar")     # =&gt; ["foo\n", "bar"]</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/27">
+<h1>Prefer Array() to to_a</h1>
+
+<pre class="sh_ruby"><code>Object.new.to_a
+# =&gt; [#&lt;Object:0xb78a665c&gt;]
+# !&gt; default `to_a' will be obsolete</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/28">
+<h1>Not using <code>Array()</code></h1>
+
+<pre class="sh_ruby"><code>messages = case message
+           when Array then message
+           when nil then []
+           else [message]
+           end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/29">
+<h1>Using <code>Array()</code></h1>
+
+<pre class="sh_ruby"><code>messages = Array(message)</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/30">
+<h1>Gluing feathers to a pig</h1>
+
+<ul>
+<li>When there is no consistent interface</li>
+<li>Decorator Pattern</li>
+<li>Wraps an object and adds a little extra</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/31">
+<h1>Decorator Candidate</h1>
+
+<pre class="sh_ruby"><code>destination = 
+  case options[:out]
+  when nil  then "return value"
+  when File then options[:out].path
+  else options[:out].inspect # String?
+  end
+
+@logger.info "Wrote to #{destination}"</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/32">
+<h1>The WithPath Decorator</h1>
+
+<pre class="sh_ruby"><code>require 'delegate'
+
+class WithPath &lt; SimpleDelegator
+  def path
+    case __getobj__
+    when File then super
+    when nil then "return value"
+    else inspect
+    end
+  end
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/33">
+<h1>Using the Decorator</h1>
+
+<pre class="sh_ruby"><code>destination = WithPath.new(options[:out]).path
+# ...
+@logger.info "Wrote to #{destination}"</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/34">
+<h1>Dynamically <code>#extend</code> objects</h1>
+
+<pre class="sh_ruby"><code>forrest_gump = Object.new
+
+module Runner
+  def run
+    "running"
+  end
+end
+
+forrest_gump.extend(Runner)
+
+forrest_gump.run #=&gt; "running"</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/35">
+<h1>Dynamically add methods</h1>
+
+<pre class="sh_ruby"><code>forrest_gump = Object.new
+
+def forrest_gump.run
+   "running"
+end
+
+forrest_gump.run #=&gt; "running"</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/36">
+<h1>Reject Unexpected Values</h1>
+
+<ul>
+<li>Not a duck. Not even a bird.</li>
+<li>Will eventually cause an error</li>
+<li>...but not before doing some damage</li>
+<li>May not be clear where the error originated</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/37">
+<h1>Assertive Code</h1>
+
+<ul>
+<li>Confident Code asserts itself</li>
+<li>Preconditions: state your demands up-front</li>
+<li>Part of Design by Contract</li>
+<li>Assertions don't have to be spelled "<code>assert()</code>"</li>
+</ul>
+
+
+<!-- !SLIDE title
+## If code in one routine encounters an unexpected condition that it doesn't know how to handle, it throws an exception, essentially throwing up its hands and yelling 
+## "I don't know what to do about this - I sure hope somebody else knows how to handle it!" 
+###- Steve McConnell, Code Complete -->
+</div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/38">
+<h1>Basic Precondition</h1>
+
+<pre class="sh_ruby"><code>def say(message, options={})
+  if options[:cowfile] &amp;&amp; options[:cowfile] =~ /^\s*$/
+
+    raise ArgumentError, "Cowfile cannot be blank"
+
+  end
+  # ...
+  if options[:cowfile]
+    command &lt;&lt; " -f #{options[:cowfile]}"
+  end
+  # ...
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/39">
+<h1>Assertion Method</h1>
+
+<pre class="sh_ruby"><code>def assert(value, message="Assertion failed")
+  raise Exception, message, caller unless value
+end
+
+# ...
+
+options[:cowfile] and
+  assert(options[:cowfile].to_s !~ /^\s*$/)</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/40">
+<h1>Assertion Notes</h1></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/41">
+<h1><code>Exception</code> skips default <code>rescue</code></h1>
+
+<pre class="sh_ruby"><code>begin
+  raise Exception, "Can't catch me!"
+rescue # rescues StandardError
+  puts "Rescued!"
+end
+# ~&gt; -:2: Can't catch me! (Exception)</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/42">
+<h1>Third argument to <code>raise</code> sets stack trace</h1>
+
+<pre class="sh_ruby"><code>raise Exception, message, caller</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/43">
+<h1>Ignore Unnacceptable Values</h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/44">
+<h1>Guard Clause</h1>
+
+<pre class="sh_ruby"><code>def say(message, options={})
+  return "" if message.nil?
+  # ...
+end</code></pre>
+
+<ul>
+<li>Short-circuit on nil message</li>
+<li>Avoids special cases later in method</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/45">
+<h1>Special Case Pattern</h1>
+
+<ul>
+<li>Some arguments just <strong>have</strong> to be special</li>
+<li>An OO way to deal with special cases</li>
+<li>An object to represent the special case</li>
+<li>Avoids <code>if</code>, <code>&amp;&amp;</code>, <code>try()</code></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content code" ref="one/01_slide/46">
+<h1>&amp;&amp; and try()</h1>
+
+<pre class="sh_ruby"><code># $? is either nil or a Process::Status object
+def check_child_exit_status!(status=$?)
+  unless [0,172].include?(status &amp;&amp; status.exitstatus)
+    raise ArgumentError,
+          "Command exited with status "\
+          "#{status.try(exitstatus)}"
+  end
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/47">
+<h1>Substitute Special Case for <code>nil</code></h1>
+
+<pre class="sh_ruby"><code># $? is either nil or a Process::Status object
+def check_child_exit_status!(status=$?)
+
+  status ||= OpenStruct.new(:exitstatus =&gt; 0)
+
+  unless [0,172].include?(status.exitstatus)
+      raise ArgumentError,
+            "Command exited with status"\
+            "#{status.exitstatus}"
+  end
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/48">
+<h1>Null Object</h1>
+
+<h2>"<em>A Null Object is an object with defined neutral ("null") behavior.</em>"</h2>
+
+<h3>(Wikipedia)</h3></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/49">
+<h1>Null Object</h1>
+
+<ul>
+<li>The special case value is usually <code>nil</code></li>
+<li>The special case for nil is usually "<strong>do nothing</strong>"</li>
+<li>Responds to any message with nil (or itself)</li>
+<li>Should be in the standard library</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/50">
+<h1>A Basic Null Object</h1>
+
+<h2>Returns self from every call</h2>
+
+<pre class="sh_ruby"><code>class NullObject
+  def method_missing(*args, &amp;block)
+    self
+  end
+
+  def nil?; true; end
+end
+
+def Maybe(value)
+  value.nil? ? NullObject.new : value
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/51">
+<h1>Nullifies chains of calls</h1>
+
+<pre class="sh_ruby"><code>foo = nil
+Maybe(foo).bar.baz + buz #=&gt; #&lt;NullObject:0x1019c5c50&gt;</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/52">
+<h1>NOT Using the Null Object</h1>
+
+<h1>if statement</h1>
+
+<pre class="sh_ruby"><code>if options[:out]
+  options[:out] &lt;&lt; output
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/53">
+<h1>Using the Null Object</h1>
+
+<h2>Null Object</h2>
+
+<pre class="sh_ruby"><code>Maybe(options[:out]) &lt;&lt; output</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/54">
+<h1>Zero Tolerance for <code>nil</code></h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/55">
+<h1>Zero Tolerance for <code>nil</code></h1>
+
+<ul>
+<li><code>nil</code> is overused in Ruby code</li>
+<li>It means too many things
+
+<ul>
+<li>Error</li>
+<li>Missing Data</li>
+<li>Flag for "default behavior"</li>
+<li>Uninitialized variable</li>
+<li>Default return value for <code>if</code>, <code>unless</code>, empty methods.</li>
+</ul>
+</li>
+<li><strong>Nil checks are the most common form of timid code</strong></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/56">
+<h1>Where'd that nil come from?!</h1>
+
+<pre class="sh_ruby"><code>post_id = params[:post_id]
+post    = if params[:blog]
+            blog = get_blog(params[:blog])
+            blog.posts.find(:first, post_id)
+          end
+post.date     # =&gt;
+# ~&gt; -:4: undefined method `date' 
+#    for nil:NilClass (NoMethodError)</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/57">
+<h1>Eliminating <code>nil</code></h1>
+
+<h2>Kill it with fire.</h2></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/58">
+<h1>Use <code>Hash#fetch</code> when appropriate</h1>
+
+<pre class="sh_ruby"><code>collection.fetch(key) { fallback_action }</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/59">
+<h1><code>#fetch</code> as an assertion</h1>
+
+<pre class="sh_ruby"><code># Default error #
+opt = {}.fetch(:required_opt)
+# ~&gt; -:1:in `fetch': key not found (IndexError)
+
+# Custom error #
+opt = {}.fetch(:required_opt) do
+  raise ArgumentError, "Missing option!"
+end
+# ~&gt; -:2: Missing option! (ArgumentError)</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/60">
+<h1><code>#fetch</code> for defaults</h1>
+
+<pre class="sh_ruby"><code># Using || 
+width = options[:width] || 40
+command &lt;&lt; " -W #{width}"
+
+# Using #fetch 
+width = options.fetch(:width) {40}
+command &lt;&lt; " -W #{width}"</code></pre>
+
+<ul>
+<li>A more explicit default</li>
+<li>One less conditional</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/61">
+<h1>Don't use nil as a default</h1>
+
+<h2>Where did that nil come from?</h2>
+
+<pre class="sh_ruby"><code>@logger = options[:logger]
+# ...
+@logger.info "Something happened"
+# ~&gt; -:3: undefined method `info' for
+#    nil:NilClass (NoMethodError)</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/62">
+<h1>Symbol Default</h1>
+
+<pre class="sh_ruby"><code>@logger = options.fetch(:logger){:no_logger_set}
+# ...
+@logger.info "Something happened"
+# ~&gt; -:3: undefined method `info' for
+#    :no_logger_set:Symbol (NoMethodError)</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/63">
+<h1>Null Object Default</h1>
+
+<pre class="sh_ruby"><code>def initialize(logger=NullObject.new)
+  @logger = logger
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/64">
+<h1>Null Object with Origin</h1>
+
+<pre class="sh_ruby"><code>class NullObject
+  def initialize
+    @origin = caller.first
+  end
+  # ...
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/65">
+<h1>Null Object with Origin</h1>
+
+<pre class="sh_ruby"><code>foo = NullObject.new
+bar = foo.bar
+baz = bar.baz
+# Now let's see where that nil originated
+baz
+#&lt;NullObject:0x7fcace309800 @origin="(irb):68:in `new'"&gt;</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/66">
+<h1>Step 2: Perform Work</h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/67">
+<h1>Perform Work</h1>
+
+<ul>
+<li>Keep the focus on the work</li>
+<li>Avoid digressions for error/input handling</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/68">
+<h1>Conditionals for Business Logic</h1>
+
+<ul>
+<li>Conditionals give you <strong>more to think about</strong></li>
+<li><strong>Reserve conditionals for business logic</strong></li>
+<li>Minimize conditionals for error, input handling</li>
+<li>Isolate error/input handling from program flow</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/69">
+<h1>Conditionals</h1>
+
+<h2>Business logic</h2>
+
+<pre class="sh_ruby"><code>if post.published?
+  # ...
+end</code></pre>
+
+<h2>Business logic?</h2>
+
+<pre class="sh_ruby"><code>if post
+  # ...
+end</code></pre></div>
+</div></div>
+
+</body>
+</html>
