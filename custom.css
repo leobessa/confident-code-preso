@@ -1,0 +1,17 @@
+li { font-size: 36px; padding: 10px; }
+li li { font-size: 24px; }
+li li:before { content: ''; }
+pre + h2 { padding-top: 36px; }
+pre {
+  margin-left: 40px;
+  font-size: 2.2em;
+}
+.bullets ul li {
+  text-align: justify;
+  padding: 15px;
+}
+
+h2 {
+  margin-left: 40px;
+  text-align: justify;
+}
