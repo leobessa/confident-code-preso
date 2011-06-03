@@ -150,17 +150,17 @@
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/11">
 <h1>Installing Cowsay</h1>
 
-<ul>
-<li><p>Debian/Ubuntu</p>
+<h2>Debian/Ubuntu</h2>
 
-<p>$ sudo apt-get install cowsay</p></li>
-<li><p>Mac OS X</p>
+<pre><code>$ sudo apt-get install cowsay
+</code></pre>
 
-<p>$ sudo port install cowsay</p>
+<h2>Mac OS X</h2>
 
-<p>$ brew install cowsay</p></li>
-</ul>
-</div>
+<pre><code>$ sudo port install cowsay
+or
+$ brew install cowsay
+</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content" ref="one/01_slide/12">
 <h1>Cowsay.rb</h1>
 
@@ -177,9 +177,9 @@ puts cow.say "Baaa"
 # &gt;&gt;                 ||     ||</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/13">
 <h1>Timid Code Structure</h1></div>
-</div><div class="slide" data-transition="none"><div class="content full-page" ref="one/01_slide/14">
+</div><div class="slide" data-transition="none"><div class="content center" ref="one/01_slide/14">
 <p><img src="file:///Users/leonardobessa/workspace/confident-code-preso/one/timid-code-plain.png" width="520" height="431" alt="timid-code-plain"/></p></div>
-</div><div class="slide" data-transition="none"><div class="content full-page" ref="one/01_slide/15">
+</div><div class="slide" data-transition="none"><div class="content center" ref="one/01_slide/15">
 <p><img src="file:///Users/leonardobessa/workspace/confident-code-preso/one/timid-code-annotated.png" width="520" height="431" alt="timid-code-annotated"/></p></div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/16">
 <h1>The Narrative structure</h1>
@@ -196,12 +196,7 @@ puts cow.say "Baaa"
 </div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/17">
 <h1>Step 1: Gather Input</h1></div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/18">
-<h1/>
-
-<ul>
-<li>To be confident, we must be sure of our inputs</li>
-</ul>
-</div>
+<h1>To be confident, we must be sure of our inputs</h1></div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/19">
 <h1>On Duck Typing</h1>
 
@@ -270,7 +265,7 @@ Array(nil)            # =&gt; []
 # Gotcha:
 Array("foo\nbar")     # =&gt; ["foo\n", "bar"]</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/27">
-<h1>Prefer Array() to to_a</h1>
+<h1>Prefer <code>Array()</code> to <code>to_a</code></h1>
 
 <pre class="sh_ruby"><code>Object.new.to_a
 # =&gt; [#&lt;Object:0xb78a665c&gt;]
@@ -357,7 +352,6 @@ forrest_gump.run #=&gt; "running"</code></pre></div>
 <ul>
 <li>Not a duck. Not even a bird.</li>
 <li>Will eventually cause an error</li>
-<li>...but not before doing some damage</li>
 <li>May not be clear where the error originated</li>
 </ul>
 </div>
@@ -662,6 +656,184 @@ end</code></pre>
 <pre class="sh_ruby"><code>if post
   # ...
 end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/70">
+<h1>Confident Styles of Work</h1></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/71">
+<h1>Confident Style: Chaining Work</h1>
+
+<pre class="sh_ruby"><code>def slug(text)
+  Maybe(text).downcase.strip.tr_s('^a-z0-9', '-')
+end
+
+slug("Confident Code") # =&gt; "confident-code"
+slug(nil)              # =&gt; #&lt;NullObject:0xb780863c&gt;</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/72">
+<h1>Confident Style: Iteration</h1>
+
+<h2>As exemplified by jQuery</h2>
+
+<pre class="sh_javascript"><code>// From "jQuery in Action"
+$("div.notLongForThisWorld").fadeOut().
+    addClass("removed");</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/73">
+<h1>Confident Style: Iteration</h1>
+
+<ul>
+<li>Single object operations are implicitly one-or-error</li>
+<li>Iteration is implicitly 0-or-more</li>
+<li>Chains of enumerable operations are self-nullifying</li>
+<li><strong><code>Cowsay#say</code> uses an iterative style...</strong></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/74">
+<h1>Iterative Style</h1>
+
+<pre class="sh_ruby"><code>def say(message, options={})
+  # ...
+  messages = Array(message)
+  message.map { |message|
+    # ...
+  }
+  # ...
+end
+
+cow.say([]) # =&gt; ""</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/75">
+<h1>Step 3: Deliver Results</h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/76">
+<h1>Don't return nil</h1>
+
+<ul>
+<li>Help your callers be confident</li>
+<li>Return a Special Case or Null Object</li>
+<li>Or raise an error</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="one/01_slide/77">
+<h1>Step 4: Handle Failure</h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/78">
+<h1>Handle Failure</h1>
+
+<ul>
+<li>Put the happy path first</li>
+<li>Put error-handling at the end</li>
+<li>Or in other methods.</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/79">
+<h1>The Ruby Exception Handling Idiom</h1>
+
+<pre class="sh_ruby"><code>def foo
+  # ...
+rescue =&gt; error # --- business/failure divider ---
+  # ...
+end</code></pre>
+
+<h2>Neatly divides method into "work" and "error handling"</h2></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/80">
+<h1>Extract error handling methods</h1>
+
+<ul>
+<li>Bouncer Method</li>
+<li>Checked Method</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/81">
+<h1>Bouncer Method</h1>
+
+<h2>Method whose job is to raise or do nothing</h2>
+
+<pre class="sh_ruby"><code>def check_child_exit_status
+  result = yield
+  status = $? || OpenStruct.new(:exitstatus =&gt; 0)
+  unless [0,172].include?(status.exitstatus)
+    raise ArgumentError,
+          "Command exited with status"\
+          "#{status.exitstatus}"
+  end
+  result
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/82">
+<h1>Bouncer Method in Use</h1>
+
+<pre class="sh_ruby"><code># Before:
+@io_class.popen(command, "w+") # ...
+# ...
+if $? &amp;&amp; ![0,172].include?($?.exitstatus)
+  raise ArgumentError,
+        "Command exited with status #{$?.exitstatus.to_s}"
+end
+
+# After:
+check_child_exit_status {
+  @io_class.popen(command, "w+") # ...
+}</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content code" ref="one/01_slide/83">
+<h2><code>begin rescue end</code></h2>
+
+<pre class="sh_ruby"><code>@io_class.popen(command, "w+") do |process|
+  results &lt;&lt; begin
+               process.write(message)
+               process.close_write
+               result = process.read
+             rescue Errno::EPIPE
+               message
+             end
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content title" ref="one/01_slide/84">
+<h1>Checked Method</h1>
+
+<pre class="sh_ruby"><code>def checked_popen(command, mode, fail_action)
+  check_child_exit_status do
+    @io_class.popen(command, mode) do |process|
+      yield(process)
+    end
+  end
+rescue Errno::EPIPE
+  fail_action.call
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/85">
+<h1>Checked Method in Use</h1>
+
+<pre class="sh_ruby"><code>checked_popen(command,"w+", lambda{message}) do |process|
+  # ...
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="one/01_slide/86">
+<p><img src="file:///Users/leonardobessa/workspace/confident-code-preso/one/confident-code-annotated.png" width="542" height="420" alt="confident-code-annotated"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/87">
+<h1>Observations on the Final Product</h1>
+
+<ul>
+<li>It has a coherent narrative structure</li>
+<li>It has lower complexity</li>
+<li>It's not necessarily shorter</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/88">
+<h1>Why Confident Code?</h1>
+
+<ul>
+<li>Fewer paths == fewer bugs</li>
+<li>Easier to debug</li>
+<li>Self-documenting</li>
+<li>"Write code for people first, the computer second"</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smbullets" ref="one/01_slide/89">
+<h1>Review</h1>
+
+<ul>
+<li>A style, not a set of techniques</li>
+<li>Consistent narrative structure</li>
+<li>Handle input, perform work, deliver output, handle failure.</li>
+<li>Avoid digressions</li>
+<li>State your demands up front</li>
+<li>Terminate nils with extreme prejudice</li>
+<li>Isolate error handling from the main flow</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets" ref="one/01_slide/90">
+<h1>Thank You</h1></div>
 </div></div>
 
 </body>
