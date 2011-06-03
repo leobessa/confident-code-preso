@@ -59,15 +59,15 @@
 
 !SLIDE bullets
 # Installing Cowsay
-* Debian/Ubuntu
+## Debian/Ubuntu
 
-  $ sudo apt-get install cowsay
+    $ sudo apt-get install cowsay
 
-* Mac OS X 
+## Mac OS X 
 
-  $ sudo port install cowsay
-
-  $ brew install cowsay
+    $ sudo port install cowsay
+    or
+    $ brew install cowsay
 
 !SLIDE
 # Cowsay.rb
@@ -87,10 +87,10 @@
 !SLIDE subsection
 # Timid Code Structure
 
-!SLIDE full-page
+!SLIDE center
 ![timid-code-plain](timid-code-plain.png)
 
-!SLIDE full-page
+!SLIDE center
 ![timid-code-annotated](timid-code-annotated.png)
 
 !SLIDE bullets
@@ -106,8 +106,7 @@
 # Step 1: Gather Input
 
 !SLIDE bullets
-# 
-* To be confident, we must be sure of our inputs
+# To be confident, we must be sure of our inputs
 
 !SLIDE bullets
 # On Duck Typing
@@ -161,7 +160,7 @@
     Array("foo\nbar")     # => ["foo\n", "bar"]
 
 !SLIDE bullets
-# Prefer Array() to to_a
+# Prefer `Array()` to `to_a`
     @@@ ruby
     Object.new.to_a
     # => [#<Object:0xb78a665c>]
@@ -252,7 +251,6 @@
 # Reject Unexpected Values
 * Not a duck. Not even a bird. 
 * Will eventually cause an error 
-* ...but not before doing some damage 
 * May not be clear where the error originated
 
 !SLIDE bullets
@@ -544,3 +542,172 @@
     if post
       # ...
     end
+
+!SLIDE subsection
+# Confident Styles of Work
+
+!SLIDE title
+# Confident Style: Chaining Work
+    @@@ ruby
+    def slug(text)
+      Maybe(text).downcase.strip.tr_s('^a-z0-9', '-')
+    end
+
+    slug("Confident Code") # => "confident-code"
+    slug(nil)              # => #<NullObject:0xb780863c>
+
+!SLIDE title
+# Confident Style: Iteration
+## As exemplified by jQuery 
+    @@@ javascript
+    // From "jQuery in Action"
+    $("div.notLongForThisWorld").fadeOut().
+        addClass("removed");
+
+!SLIDE bullets
+# Confident Style: Iteration
+* Single object operations are implicitly one-or-error 
+* Iteration is implicitly 0-or-more 
+* Chains of enumerable operations are self-nullifying 
+* **`Cowsay#say` uses an iterative style...**
+
+!SLIDE title
+# Iterative Style
+    @@@ ruby
+    def say(message, options={})
+      # ...
+      messages = Array(message)
+      message.map { |message|
+        # ...
+      }
+      # ...
+    end
+
+    cow.say([]) # => ""
+
+!SLIDE subsection
+# Step 3: Deliver Results
+
+!SLIDE bullets
+# Don't return nil
+* Help your callers be confident 
+* Return a Special Case or Null Object 
+* Or raise an error
+
+!SLIDE subsection
+# Step 4: Handle Failure
+
+!SLIDE bullets
+# Handle Failure
+* Put the happy path first 
+* Put error-handling at the end 
+* Or in other methods.
+
+!SLIDE title
+# The Ruby Exception Handling Idiom
+    @@@ ruby
+    def foo
+      # ...
+    rescue => error # --- business/failure divider ---
+      # ...
+    end
+## Neatly divides method into "work" and "error handling"
+
+!SLIDE bullets
+# Extract error handling methods
+* Bouncer Method 
+* Checked Method
+
+!SLIDE bullets
+# Bouncer Method
+## Method whose job is to raise or do nothing 
+    @@@ ruby
+    def check_child_exit_status
+      result = yield
+      status = $? || OpenStruct.new(:exitstatus => 0)
+      unless [0,172].include?(status.exitstatus)
+        raise ArgumentError,
+              "Command exited with status"\
+              "#{status.exitstatus}"
+      end
+      result
+    end
+
+!SLIDE bullets
+# Bouncer Method in Use
+    @@@ ruby
+    # Before:
+    @io_class.popen(command, "w+") # ...
+    # ...
+    if $? && ![0,172].include?($?.exitstatus)
+      raise ArgumentError,
+            "Command exited with status #{$?.exitstatus.to_s}"
+    end
+
+    # After:
+    check_child_exit_status {
+      @io_class.popen(command, "w+") # ...
+    }
+
+!SLIDE code
+## `begin rescue end`
+    @@@ ruby
+    @io_class.popen(command, "w+") do |process|
+      results << begin
+                   process.write(message)
+                   process.close_write
+                   result = process.read
+                 rescue Errno::EPIPE
+                   message
+                 end
+    end
+
+!SLIDE title
+# Checked Method
+    @@@ ruby
+    def checked_popen(command, mode, fail_action)
+      check_child_exit_status do
+        @io_class.popen(command, mode) do |process|
+          yield(process)
+        end
+      end
+    rescue Errno::EPIPE
+      fail_action.call
+    end
+
+!SLIDE bullets
+# Checked Method in Use
+    @@@ ruby
+    checked_popen(command,"w+", lambda{message}) do |process|
+      # ...
+    end
+
+!SLIDE center
+![confident-code-annotated](confident-code-annotated.png)
+
+!SLIDE bullets
+# Observations on the Final Product
+* It has a coherent narrative structure 
+* It has lower complexity 
+* It's not necessarily shorter
+
+!SLIDE bullets
+# Why Confident Code?
+* Fewer paths == fewer bugs 
+* Easier to debug 
+* Self-documenting 
+* "Write code for people first, the computer second"
+
+!SLIDE smbullets
+# Review
+* A style, not a set of techniques 
+* Consistent narrative structure 
+* Handle input, perform work, deliver output, handle failure. 
+* Avoid digressions 
+* State your demands up front
+* Terminate nils with extreme prejudice 
+* Isolate error handling from the main flow
+
+!SLIDE bullets
+# Thank You
+  
