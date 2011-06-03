@@ -88,10 +88,10 @@
 # Timid Code Structure
 
 !SLIDE center
-![timid-code-plain](/timid-code-plain.png)
+![timid-code-plain](timid-code-plain.png)
 
 !SLIDE center
-![timid-code-annotated](/timid-code-annotated.png)
+![timid-code-annotated](timid-code-annotated.png)
 
 !SLIDE bullets
 # The Narrative structure
@@ -683,7 +683,7 @@
     end
 
 !SLIDE center
-![confident-code-annotated](/confident-code-annotated.png)
+![confident-code-annotated](confident-code-annotated.png)
 
 !SLIDE bullets
 # Observations on the Final Product
